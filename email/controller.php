@@ -7,9 +7,9 @@
 class email_controller {
 	#domain
 	private domain = "abalimi.org";
-
 	#username of controlled account
 	private $username;
+
 	private function __construct($username){
 			
 			#replacing all dots with ;'s
@@ -25,14 +25,14 @@ class email_controller {
 	# for user in machine
 	#
 	function available_folders(){
-		$directories = glob('/' . $this->username , GLOB_ONLYDIR);
+		$directories = glob('/' . $this->username . '/Maildir/' , GLOB_ONLYDIR);
 		return $directories;
 	}
 	#
 	# Get all emails in folder
 	#
 	function get_emails($folder){
-		$emails = scandir('/users/' . $this->username . '/' . $folder);
+		$emails = scandir('/users/' . $this->username . '/Maildir/' . $folder);
 		return emails;
 	}
 	#

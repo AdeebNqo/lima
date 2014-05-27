@@ -30,6 +30,9 @@
 
 	<body style="min-height: 638px;" class="wysihtml5-supported  pace-done skin-blue fixed">
 
+            <?php
+                $useraccount = email_controller('johndoe');
+            ?>
             <div style="min-height: 582px;" class="wrapper row-offcanvas row-offcanvas-left">
                 <!-- Left side column. contains the logo and sidebar -->
                 <aside style="min-height: 638px;" class="left-side sidebar-offcanvas">
@@ -177,6 +180,12 @@
                                             <div style="margin-top: 15px;">
                                                 <ul class="nav nav-pills nav-stacked">
                                                     <li class="header">Folders</li>
+                                                    <?php 
+                                                       $folders = $useraccount ->available_folders();
+                                                       foreach ($fodlers as $folder) {
+                                                           //display folder with number of contents if inbox/drafts
+                                                       }
+                                                    ?>
                                                     <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox (14)</a></li>
                                                     <li><a href="#"><i class="fa fa-pencil-square-o"></i> Drafts</a></li>
                                                     <li><a href="#"><i class="fa fa-mail-forward"></i> Sent</a></li>
