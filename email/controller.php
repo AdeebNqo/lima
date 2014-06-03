@@ -1,21 +1,16 @@
 <?php
-
-#
-#ToDo: 1. cache email for quick viewing
-#	   2. use the php version of inotify for listening to filesystem changes
-#
 class email_controller {
 	#domain
-	private domain = "abalimi.org";
+	private $domain = "abalimi.org";
 	#username of controlled account
 	private $username;
 
-	private function __construct($username){
+	function __construct($username){
 			
 			#replacing all dots with ;'s
 			$username = str_replace(".", ";", $username);
 			#checking if user exists
-			if (!file_exists('/users/'.$username)){
+			if (!file_exists('/users/'. $username)){
 					throw new Exception('No such user.');
 			}
 			$this->username = $username;
@@ -25,7 +20,7 @@ class email_controller {
 	# for user in machine
 	#
 	function available_folders(){
-		$directories = glob('/' . $this->username . '/Maildir/' , GLOB_ONLYDIR);
+		$directories = glob('/users/' . $this->username . '/Maildir/*' , GLOB_ONLYDIR);
 		return $directories;
 	}
 	#
@@ -44,6 +39,25 @@ class email_controller {
                'X-Mailer: PHP/' . phpversion();
             $result = mail($email_to, $email_subject, $email_message, $headers);
             return $result;
+	}
+	#
+	#
+	#
+	function isinbox($folder){
+		if ($folder== '/users/' . $this->username . 'Maildir/cur'){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	#
+	#
+	#
+	#
+	function getnumnewemails(){
+		$directories = glob('/users/' . $this->username . '/Maildir/new/*');
+		return count($directories);
 	}
 }
 ?>
