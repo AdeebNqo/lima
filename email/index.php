@@ -47,12 +47,12 @@ $useraccount = new email_controller('johndoe');
                         <!-- Sidebar user panel -->
                         <div class="user-panel">
                             <div class="pull-left image">
-                                <img src="mailbox_files/avatar3.png" class="img-circle" alt="User Image">
+                                <img src="assets/img/avatar3.png" class="img-circle" alt="User Image">
                             </div>
                             <div class="pull-left info">
                                 <p>Hello, Jane</p>
 
-                                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                                <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
                             </div>
                         </div>
                         <!-- search form -->
@@ -69,7 +69,7 @@ $useraccount = new email_controller('johndoe');
                         <ul class="sidebar-menu">
 
                             <li>
-                                <a href="http://almsaeedstudio.com/AdminLTE/pages/calendar.html">
+                                <a href="calendar.php">
                                     <i class="fa fa-calendar"></i> <span>Calendar</span>
                                     <small class="badge pull-right bg-red">3</small>
                                 </a>
@@ -121,8 +121,8 @@ $useraccount = new email_controller('johndoe');
                                             <div style="margin-top: 15px;">
                                                 <ul class="nav nav-pills nav-stacked">
                                                     <li class="header">Folders</li>
-                                                    <?php 
-                                                       $folders = $useraccount ->available_folders();
+                                                    <?php
+                                                       $folders = $useraccount ->availablefolders();
                                                        foreach ($folders as $folder) {
 								if ($useraccount->isinbox($folder)){
 				echo "<li class=\"active\"><a href=\"#\"><i class=\"fa fa-inbox\"></i> Inbox (" . $useraccount->getnumnewemails() .")</a></li>";
@@ -274,9 +274,9 @@ $useraccount = new email_controller('johndoe');
     <!-- jQuery 2.0.2 -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
         <!-- Bootstrap -->
-        <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- AdminLTE App -->
-        <script src="../js/AdminLTE/app.js" type="text/javascript"></script>
+        <script src="assets/js/AdminLTE/app.js" type="text/javascript"></script>
         <!-- Bootstrap WYSIHTML5 -->
-        <script src="../js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+        <script src="assets/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
 </html>

@@ -2,13 +2,15 @@
 
 Please do not bother trying to look through code --- not meant for public consumption.
 
-##ToDo
+##Stuff 4june
 
-- List folders
-- Handle button clicks
-- Display emails
-- Send email (including attachments and cc functions)
-- Use Inotify for listening for new emails in certain folders
+-calling method on list item click
+-responding to button clicks
+-modal email compose window
+-mvc setup
+-email folder icons
+-search
+-list emails per date or read/unread
 
 ##EXIM 4 and PHP setup
 

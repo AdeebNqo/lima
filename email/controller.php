@@ -1,12 +1,16 @@
 <?php
-class email_controller {
+
+require_once('emailmodel.php');
+//use emailmodel;
+class email_controller{
 	#domain
 	private $domain = "abalimi.org";
 	#username of controlled account
 	private $username;
-
+	#model
+	private $model;
 	function __construct($username){
-			
+			//parent::__construct();
 			#replacing all dots with ;'s
 			$username = str_replace(".", ";", $username);
 			#checking if user exists
@@ -14,50 +18,60 @@ class email_controller {
 					throw new Exception('No such user.');
 			}
 			$this->username = $username;
+			$this->model = new emailmodel($username);
 	}
 	#
-	# Method to return all available folders
-	# for user in machine
-	#
-	function available_folders(){
+	#Method for listing available folders
+	function availablefolders(){
 		$directories = glob('/users/' . $this->username . '/Maildir/*' , GLOB_ONLYDIR);
-		return $directories;
+		$dirs = array();
+		foreach($directories as $dir){
+			array_push($dirs,str_replace(substr($dir,0,strrpos($dir, '/')+1),'',$dir));
+			
+		}
+		return $dirs;
 	}
 	#
-	# Get all emails in folder
-	#
-	function get_emails($folder){
-		$emails = scandir('/users/' . $this->username . '/Maildir/' . $folder);
-		return emails;
+	#Method to return the number of new emails
+	function getnumnewemails(){
+		return $this->model->getnumnewemails();	
 	}
+	#
+	#Method for listing a specified portion of new emails
+	function getnewemails($start){
+		return $this->model->getnewemails($start);
+	}
+	#
+	#Method for listing a portion of emails from any folder
+	function getemails($folder, $start){
+		return $this->model->getemails($folder, $start);
+	}
+	#
+	#
+	function getusername(){
+		return $this->username;
+	}
+	#
+	#Stolen from chad
+	function index() {
+		$data['view_file'] = 'email_view';
+
+		$this->load->module('template');
+		$this->template->admin($data);
+	}
+
 	#
 	# Sending email for user
 	#
 	function send_email($subject, $msg, $recipient){
-			$emailheader = 'From: '.$this->username . '@' . $this->domain ." \r\n".
-               'Reply-To: '. $this->username .'@'. $this->domain . '\r\n' .
-               'X-Mailer: PHP/' . phpversion();
-            $result = mail($email_to, $email_subject, $email_message, $headers);
-            return $result;
+		$emailheader = 'From: '.$this->username . '@' . $this->domain . '\r\n'.
+			'Reply-To: '. $this->username . '@'. $this->domain . '\r\n' .
+			'X-Mailer: PHP/' . phpversion();
+		$result = mail($recipient, $subject, $msg, $emailheader);
+		return $result;
 	}
-	#
-	#
-	#
 	function isinbox($folder){
-		if ($folder== '/users/' . $this->username . 'Maildir/cur'){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	#
-	#
-	#
-	#
-	function getnumnewemails(){
-		$directories = glob('/users/' . $this->username . '/Maildir/new/*');
-		return count($directories);
+		return (($folder== 'cur') ? true: false);
 	}
 }
 ?>
